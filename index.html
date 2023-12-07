@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Main Page</title>
+    <style>
+      svg {
+        border: 1px solid black;
+      }
+      ul li {
+        list-style: none;
+      }
+      li p {
+        margin: 0;
+        display: flex;
+      }
+    </style>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="./code.js"></script>
+  </head>
+  <body>
+    <div id="graph"></div>
+    <script>
+      d3.json("./connections.json").then(function (data) {
+        let svg = d3
+          .select("#graph")
+          .append("svg")
+          .attr("width", "80vw")
+          .attr("height", "80vh")
+          .attr("viewBox", "0 0 1000 800");
+
+        visualizeGraph(data, svg);
+      });
+    </script>
+    <ul>
+      <li>
+        Title:
+        <p id="paper"></p>
+      </li>
+      <li>
+        Author Name:
+        <p id="name"></p>
+      </li>
+      <li>
+        Publisher:
+        <p id="publication"></p>
+      </li>
+      <li>
+        Country:
+        <p id="country"></p>
+      </li>
+    </ul>
+    <div>
+      <div class="col">
+        <label for="collideForce">Collide Force:</label>
+        <input
+          type="range"
+          id="collideForce"
+          min="0"
+          max="100"
+          step="1"
+          value="0"
+        />
+      </div>
+      <div class="col">
+        <label for="chargeForce">Charge Force:</label>
+        <input
+          type="range"
+          id="chargeForce"
+          min="-1000"
+          max="1000"
+          step="1"
+          value="-55"
+        />
+      </div>
+      <div class="col">
+        <label for="linkStrength">Link Strength:</label>
+        <input
+          type="range"
+          id="linkStrength"
+          min="0"
+          max="1"
+          step="0.1"
+          value="0.4"
+        />
+      </div>
+    </div>
+    <div>
+      <label>
+        <input
+          type="radio"
+          name="nodeSizeMetric"
+          value="publications"
+          checked
+        />
+        Number of Publications
+      </label>
+      <label>
+        <input type="radio" name="nodeSizeMetric" value="citations" />
+        Number of Citations
+      </label>
+      <label>
+        <input type="radio" name="nodeSizeMetric" value="degree" />
+        Degree
+      </label>
+    </div>
+  </body>
+</html>
